@@ -560,13 +560,15 @@ var util = {
         } else {
             map[key] = val;
             setTimeout(function () {
-                if (!configStore) return;
-                if (map[key] === undefined) {
-                    configStore.delete(key);
-                } else {
-                    configStore.set(key, map[key]);
-                }
-                delete map[key];
+                try {
+                    if (!configStore) return;
+                    if (map[key] === undefined) {
+                        configStore.delete(key);
+                    } else {
+                        configStore.set(key, map[key]);
+                    }
+                    delete map[key];
+                } catch (e) {}
             }, 300);
         }
     };
